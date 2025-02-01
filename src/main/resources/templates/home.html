@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - ChatBot Parth</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1e1e2f, #29293d);
+            color: #ffffff;
+            padding-top: 70px;
+        }
+
+        /* Navbar */
+        .navbar {
+            background: rgba(0, 0, 0, 0.8);
+        }
+
+        .navbar .nav-link,
+        .navbar .navbar-brand {
+            color: #ffffff !important;
+            font-weight: 500;
+        }
+
+        .navbar .nav-link:hover {
+            color: #FF8C00 !important;
+        }
+
+        /* Form Styling */
+        .post-form {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 15px rgba(255, 255, 255, 0.1);
+        }
+
+        textarea {
+            background-color: #333;
+            color: #ffffff;
+            border: 1px solid #555;
+            resize: none;
+        }
+
+        textarea::placeholder {
+            color: #bbb;
+        }
+
+        .btn-post {
+            background-color: #FF8C00;
+            border-color: #FF8C00;
+            font-weight: bold;
+        }
+
+        .btn-post:hover {
+            background-color: #e07b00;
+            border-color: #e07b00;
+        }
+
+        /* Cards */
+        .card {
+            background-color: rgba(255, 255, 255, 0.15);
+            border: none;
+            border-radius: 12px;
+            backdrop-filter: blur(5px);
+            box-shadow: 0px 4px 15px rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0px 6px 20px rgba(255, 255, 255, 0.2);
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        .post-author {
+            font-style: italic;
+            font-size: 14px;
+            color: #ccc;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <div class="container-fluid">
+        <a class="navbar-brand" th:href="@{/}">CHAT-BOT~PARTH</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/logout}">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Content -->
+<div class="container mt-4">
+    <h1 class="text-center">Daily Posts</h1>
+
+    <!-- Add Post Form -->
+    <div class="post-form my-4">
+        <form th:action="@{/add}" method="post">
+            <div class="mb-3">
+                <label for="content" class="form-label">What's on your mind?</label>
+                <textarea class="form-control" id="content" name="content" rows="3" placeholder="Share your thoughts..." required></textarea>
+            </div>
+            <button type="submit" class="btn btn-post w-100">Post</button>
+        </form>
+    </div>
+
+    <!-- Posts Section -->
+    <div class="row">
+        <div class="col-md-6 col-lg-4 mb-4" th:each="post : ${posts}">
+            <div class="card">
+                <div class="card-body">
+                    <p class="card-text" th:text="${post.content}"></p>
+                    <p class="post-author">Posted by: <span th:text="${post.user.username}"></span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
